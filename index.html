@@ -9,21 +9,28 @@
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
-  html,body{height:100%;margin:0;background:#ffffff;font-family:-apple-system,system-ui,'Segoe UI',sans-serif;color:#5b626c}
-  .wrap{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px}
-  .spin{width:28px;height:28px;border:3px solid #f7d9d9;border-top-color:#e60000;border-radius:50%;animation:sp .8s linear infinite}
-  @keyframes sp{to{transform:rotate(360deg)}}
-  .fallback{display:none;font-size:13px;max-width:280px;line-height:1.5}
-  .fallback a{color:#e60000;font-weight:700}
+  html,body{height:100%;margin:0;background:#ffffff;font-family:-apple-system,system-ui,'Segoe UI',sans-serif;color:#241f19}
+  .wrap{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:18px;padding:24px}
+  img{width:96px;height:96px}
+  h1{font-size:17px;margin:0}
+  p{font-size:13px;color:#5b626c;margin:0;max-width:280px;line-height:1.5}
+  .open-btn{appearance:none;border:none;background:#e60000;color:#fff;font-size:15px;font-weight:700;
+    padding:14px 28px;border-radius:12px;cursor:pointer;text-decoration:none;display:inline-block}
+  .open-btn:active{background:#c20000}
 </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="spin"></div>
-    <div>Opening NewAge Project Hub…</div>
-    <div class="fallback" id="fallback">
-      Taking a while? <a href="#" id="manualLink">Tap here to open it</a>.
-    </div>
+    <img src="icon-192.png" alt="NewAge Project Hub">
+    <h1>NewAge Project Hub</h1>
+    <p>Tap below to open your dashboard.</p>
+    <!-- A plain, real anchor tag — works with no JavaScript at all, and
+         never navigates on its own, so a scanner/crawler visiting this
+         page sees only this shell (with its manifest and service worker),
+         never the dashboard it links to. -->
+    <a class="open-btn" id="openLink" href="https://script.google.com/a/macros/newage-india.in/s/AKfycbwM2julLb3yApzOqrT2e5SzEqTi0t6_XEU2zevDE7lu1AwvQZwGVhundPuPktrhIUAr/exec">
+      Open Dashboard
+    </a>
   </div>
 
 <script>
@@ -33,24 +40,6 @@
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js').catch(function(){});
   }
-
-  // ============================================================
-  // REQUIRED: replace this with your real Apps Script web app URL.
-  // It's the address you already use to open the dashboard in a
-  // browser — it ends in /exec, e.g.:
-  //   https://script.google.com/macros/s/AKfycb.../exec
-  // ============================================================
-  var DASHBOARD_URL = "https://script.google.com/a/macros/newage-india.in/s/AKfycbwM2julLb3yApzOqrT2e5SzEqTi0t6_XEU2zevDE7lu1AwvQZwGVhundPuPktrhIUAr/exec";
-
-  document.getElementById('manualLink').href = DASHBOARD_URL;
-
-  // Show the manual fallback link if the redirect hasn't happened
-  // within 4 seconds (e.g. slow network, or the URL above wasn't set).
-  setTimeout(function () {
-    document.getElementById('fallback').style.display = 'block';
-  }, 4000);
-
-  window.location.replace(DASHBOARD_URL);
 </script>
 </body>
 </html>
