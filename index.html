@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>NewAge Project Hub</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e60000">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+  html,body{height:100%;margin:0;background:#ffffff;font-family:-apple-system,system-ui,'Segoe UI',sans-serif;color:#5b626c}
+  .wrap{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px}
+  .spin{width:28px;height:28px;border:3px solid #f7d9d9;border-top-color:#e60000;border-radius:50%;animation:sp .8s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .fallback{display:none;font-size:13px;max-width:280px;line-height:1.5}
+  .fallback a{color:#e60000;font-weight:700}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="spin"></div>
+    <div>Opening NewAge Project Hub…</div>
+    <div class="fallback" id="fallback">
+      Taking a while? <a href="#" id="manualLink">Tap here to open it</a>.
+    </div>
+  </div>
+
+<script>
+  // Registers the service worker purely so this shell qualifies as an
+  // installable PWA. It does not cache or serve any of the real app's
+  // content — the actual dashboard lives entirely on Google Apps Script.
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js').catch(function(){});
+  }
+
+  // ============================================================
+  // REQUIRED: replace this with your real Apps Script web app URL.
+  // It's the address you already use to open the dashboard in a
+  // browser — it ends in /exec, e.g.:
+  //   https://script.google.com/macros/s/AKfycb.../exec
+  // ============================================================
+  var DASHBOARD_URL = "https://script.google.com/a/macros/newage-india.in/s/AKfycbwM2julLb3yApzOqrT2e5SzEqTi0t6_XEU2zevDE7lu1AwvQZwGVhundPuPktrhIUAr/exec";
+
+  document.getElementById('manualLink').href = DASHBOARD_URL;
+
+  // Show the manual fallback link if the redirect hasn't happened
+  // within 4 seconds (e.g. slow network, or the URL above wasn't set).
+  setTimeout(function () {
+    document.getElementById('fallback').style.display = 'block';
+  }, 4000);
+
+  window.location.replace(DASHBOARD_URL);
+</script>
+</body>
+</html>
